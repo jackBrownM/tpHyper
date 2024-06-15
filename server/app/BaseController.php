@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app;
 
+use app\admin\logic\system\adminLogic;
 use think\App;
 use think\exception\ValidateException;
 use think\Validate;
@@ -37,6 +38,12 @@ abstract class BaseController
     protected $middleware = [];
 
     /**
+     * admin管理员逻辑层
+     * @var adminLogic
+     */
+    protected adminLogic $adminLogic;
+
+    /**
      * 构造方法
      * @access public
      * @param  App  $app  应用对象
@@ -45,6 +52,8 @@ abstract class BaseController
     {
         $this->app     = $app;
         $this->request = $this->app->request;
+        // 初始化逻辑层
+        $this->adminLogic = new adminLogic();
 
         // 控制器初始化
         $this->initialize();
